@@ -1,0 +1,16 @@
+<ul class="list-group" *ngFor="let parent of display | keyvalue">
+  <li class="list-group-item">  <input  type="checkbox" [value]="parent.key" [(ngModel)]="parent.check"  #myItem  (change)="change(parent.key,parent.value.properties,$event)">{{parent.key}}</li>
+ <ng-container *ngIf="parent.check && parent.value.hasOwnProperty('properties')">
+      <ul *ngFor="let child of parent.value.properties | keyvalue">
+      <li>
+         <input  type="checkbox" [checked]="isChecked(parent.key,child.key)" (change)="changeChild(parent.key,child.key,$event)"/>
+    {{child.key}}
+        
+      </li>
+      </ul>  
+    </ng-container> 
+</ul>
+
+<hr>
+{{selectedIds|json}}
+<button class="btn btn-primary"(click)="getData()">get Data</button>
